@@ -7,10 +7,14 @@ import telran.view.*;
 import java.util.*;
 public class CompanyClientAppl {
 
-	private static final int PORT = 5000;
+	private static final int DEFAULT_PORT = 5000;
 
 	public static void main(String[] args) {
-		TcpClient tcpClient = new TcpClient("localhost", PORT);
+		
+		String hostIp = args.length > 0 ? args[0] : "localhost";
+		int port = DEFAULT_PORT;
+		
+		TcpClient tcpClient = new TcpClient(hostIp , port);
 		CompanyProxy companyProxy = new CompanyProxy(tcpClient);
 		List<Item> items = CompanyApplItems.getCompanyItems(companyProxy,
 				new HashSet<>(List.of(new String[] {"QA", "Audit", "Development"})));
